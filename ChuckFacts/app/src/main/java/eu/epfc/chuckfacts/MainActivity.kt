@@ -1,66 +1,61 @@
 package eu.epfc.chuckfacts
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.ProgressBar
 import android.widget.Spinner
 import android.widget.TextView
-
 import java.lang.ref.WeakReference
 
-class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class MainActivity : AppCompatActivity() {
+lateinit var textUrl: TextView
+lateinit var cats:Spinner
+lateinit var progression: ProgressBar
+lateinit var textFactChuck:TextView
 
-     var indexCategory:String="movie"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        textUrl = findViewById(R.id.text_url)
+         cats=findViewById(R.id.cat_select)
+        progression=findViewById(R.id.progress)
+        textFactChuck=findViewById(R.id.text_chuck_fact)
+        progression.visibility=View.INVISIBLE
+
+
     }
 
     fun onGetButtonClicked(view: View){
+        val category=cats.selectedItem.toString()
 
-        val textUrl: TextView = findViewById(R.id.text_url)
-       val cats:Spinner=findViewById(R.id.cat_select)
-        val chuckUrl = "https://api.chucknorris.io/jokes/random"
+        val chuckUrl = "https://api.chucknorris.io/jokes/random?category=$category"
 
-        val adapter=ArrayAdapter.createFromResource(this,R.array.cats,android.R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        cats.adapter=adapter
-        cats.onItemSelectedListener=this
-
-        val indexCat:String= cats.adapter.getItem(adapter.getPosition(indexCategory)).toString()
-        //we create the url with the params of category
-        val chuckUrlSelected="$chuckUrl?category=${indexCat}"
-        textUrl.text=chuckUrlSelected
+        textUrl.text=chuckUrl
         // we instance the class with the 3 params
-        val requestTask = HttpRequestTask(chuckUrlSelected,this.applicationContext,WeakReference(this))
-       indexCategory=indexCat
+        val requestTask = HttpRequestTask(chuckUrl,this.applicationContext,WeakReference(this))
         //we create thread with the main function that we just create
         val requestThread = Thread(requestTask)
         // with methode start() we execute thread
         requestThread.start()
+        progression.visibility=View.VISIBLE
+        textFactChuck.visibility=View.INVISIBLE
 
 
     }
-    override fun onNothingSelected(parent: AdapterView<*>?) {
 
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-        val index: String = parent?.getItemAtPosition(position).toString()
-        indexCategory = index
-
-    }
+    @SuppressLint("SetTextI18n")
     fun displayHttpResponse(response : String?){
-        val textChuckFact: TextView = findViewById(R.id.text_chuck_fact)
         if (response != null) {
-            Log.d("MainActivity",response)
-            textChuckFact.text=response
+
+            textFactChuck.text=response
+        }else{
+            textFactChuck.text = "There is No  Such content"
         }
+        textFactChuck.visibility=View.VISIBLE
+        progression.visibility=View.INVISIBLE
     }
 
 
