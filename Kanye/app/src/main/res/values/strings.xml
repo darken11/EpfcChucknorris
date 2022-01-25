@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Kanye</string>
+    <string name="btn_more_wisdom">More Wisdom</string>
+    <string name="enter_a_name">Enter your name</string>
+    <string name="btn_go">GO</string>
+    <string name="failed_msg">Failed to get results, please try again !!!</string>
+    <string name="title">Kanye Quote</string>
+</resources>
