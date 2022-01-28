@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/dhikrId"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:textSize="50sp"
+        android:text="@string/dhikr"
+        android:src="@drawable/image_mosq"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/todo" />
+    <TextView
+        android:id="@+id/label_date"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.08"
+        android:text=""
+        style="@style/TitleFontFirst"
+        android:padding="10dp"
+        android:background="#222121"
+        android:textColor="@color/white"
+
+        />
+    <TextView
+        android:id="@+id/label_title"
+        android:layout_width="330dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:text="@string/dhikr"
+        style="@style/TitleFontFirst"
+        android:padding="3dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/corner_ronder_up"
+        android:textColor="@color/white"
+
+        android:shadowRadius="50"
+
+        />
+    <TextView
+        android:id="@+id/dhikrBody"
+        android:layout_width="330dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:text=""
+        style="@style/TitleFontFirst"
+        android:textColor="@color/white"
+        android:onClick="goNextPage"
+        android:layout_marginBottom="30dp"
+        android:shadowRadius="50"
+        android:background="@drawable/corner_ronded"
+
+
+        />
+
+</LinearLayout>
