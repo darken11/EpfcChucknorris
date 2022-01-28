@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:label="@string/dhikr"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dhikrView"
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:textColor="@color/white"
+        android:text=""
+        android:textSize="40sp"
+        android:background="#2E2D2D"
+        style="@style/TitleFont"
+
+        />
+
+    <TextView
+        android:id="@+id/incTxt"
+
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:textColor="@color/white"
+        android:text="@string/zero"
+        android:background="@drawable/ronde_shape"
+        style="@style/TitleFont"
+        android:layout_gravity="center_horizontal"
+
+
+        />
+
+    <TextView
+        android:id="@+id/resetTxt"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:text="@string/reset"
+        style="@style/TitleFont"
+        android:textColor="@color/white"
+
+
+        />
+
+
+
+
+</LinearLayout>

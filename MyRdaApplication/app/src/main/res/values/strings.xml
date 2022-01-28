@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Misbahati</string>
+    <string name="dhikr">اذكار اليوم</string>
+    <string name="zero">0</string>
+    <string name="reset">Reset</string>
+    <string name="todo">TODO</string>
+    <string name="name_app">مسبحة الصلاة</string>
+    <string name="failed_msg">لا يوجد تاريخ</string>
+</resources>
