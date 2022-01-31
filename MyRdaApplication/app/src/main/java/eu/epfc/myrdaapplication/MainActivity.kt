@@ -15,7 +15,9 @@ class MainActivity : AppCompatActivity() {
 
 
     lateinit var dhikrTxtView: TextView
-
+    lateinit var restTxt:TextView
+    lateinit var incTxt:TextView
+    var increment=0
 
     /**
      *
@@ -24,13 +26,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         dhikrTxtView=findViewById(R.id.dhikrView)
-
+        restTxt=findViewById(R.id.resetTxt)
+        incTxt=findViewById(R.id.incTxt)
         val textFromIntent:String? =intent.getStringExtra(Intent.EXTRA_TEXT)
         dhikrTxtView.text = textFromIntent
+        dhikrTxtView.setOnClickListener{
+            increment++
+            incTxt.text=increment.toString()
+        }
 
-        var increment=0
-        var restTxt:TextView=findViewById(R.id.resetTxt)
-        var incTxt:TextView=findViewById(R.id.incTxt)
+
         incTxt.setOnClickListener{
             increment++
 
