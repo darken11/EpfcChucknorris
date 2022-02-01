@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SWExplorer</string>
+    <string name="a_planet">A planet</string>
+    <string name="grid">GRID</string>
+    <string name="recycle_view">Recycle View</string>
+    <string name="list">LIST</string>
+
+</resources>
