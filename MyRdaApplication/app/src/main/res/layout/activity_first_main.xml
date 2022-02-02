@@ -10,7 +10,7 @@
         android:id="@+id/dhikrId"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.4"
+        android:layout_weight="0.2"
         android:textSize="50sp"
         android:text="@string/dhikr"
         android:src="@drawable/image_mosq"
@@ -28,6 +28,39 @@
         android:textColor="@color/white"
 
         />
+    <TextView
+        android:id="@+id/label_title_prayOf"
+        android:layout_width="330dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:text="@string/prayOf"
+        style="@style/TitleFontFirst"
+        android:padding="3dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/corner_ronder_up"
+        android:textColor="@color/white"
+
+        android:shadowRadius="50"
+
+        />
+    <TextView
+        android:id="@+id/prayOfBody"
+        android:layout_width="330dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.29"
+        android:text="..."
+
+        style="@style/TitleFontFirst"
+        android:textColor="@color/white"
+        android:onClick="onShowDoua"
+        android:layout_marginBottom="30dp"
+        android:shadowRadius="50"
+        android:background="@drawable/corner_ronded"
+
+
+
+        />
+
     <TextView
         android:id="@+id/label_title"
         android:layout_width="330dp"
@@ -47,7 +80,7 @@
         android:id="@+id/dhikrBody"
         android:layout_width="330dp"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="0.1"
         android:text=""
         style="@style/TitleFontFirst"
         android:textColor="@color/white"

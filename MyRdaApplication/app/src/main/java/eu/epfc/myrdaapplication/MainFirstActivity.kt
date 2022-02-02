@@ -2,6 +2,7 @@ package eu.epfc.myrdaapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.text.TextUtils.concat
 import android.view.View
 import android.widget.TextView
@@ -17,6 +18,11 @@ class MainFirstActivity:AppCompatActivity() {
     lateinit var fillerPhrases:List<String>
     lateinit var generateDhikr:String
     lateinit var  dhikrBody:TextView
+    lateinit var prayForPhrases:List<String>
+    lateinit var generatePrayFor:String
+    lateinit var prayOfBody:TextView
+
+
     lateinit var labelDate:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +32,12 @@ class MainFirstActivity:AppCompatActivity() {
         generateDhikr = generatePhrase(fillerPhrases)
         dhikrBody = findViewById(R.id.dhikrBody)
         dhikrBody.text = generateDhikr
+
+        prayForPhrases=this.createPrayForPhrases()
+        generatePrayFor=generatePhrase(prayForPhrases)
+        prayOfBody=findViewById(R.id.prayOfBody)
+        prayOfBody.text=generatePrayFor
+
         labelDate = findViewById(R.id.label_date)
 
         val url = "https://api.pray.zone/v2/times/today.json?city=brussels"
@@ -47,7 +59,47 @@ class MainFirstActivity:AppCompatActivity() {
         intent.putExtra(Intent.EXTRA_TEXT,generateDhikr)
         startActivity(intent)
     }
+    fun onShowDoua(view: View){
+        val intent= Intent(this, PrayOfActivity::class.java)
+        intent.putExtra(Intent.EXTRA_TEXT,generatePrayFor)
+        startActivity(intent)
+    }
+    /**
+     * List of douaa
+     */
+    private fun createPrayForPhrases(): List<String> {
+        return listOf(
+            "اللَّهمَّ إنِّي أسألُكَ منَ الخيرِ كلِّهِ عاجلِهِ وآجلِهِ ما علمتُ منهُ وما لم أعلمْ وأعوذُ بكَ منَ الشَّرِّ كلِّهِ عاجلِهِ وآجلِهِ ما علمتُ منهُ وما لم أعلمْ اللَّهمَّ إنِّي أسألُكَ من خيرِ ما سألكَ عبدُكَ ونبيُّكَ وأعوذُ بكَ من شرِّ ما عاذَ منه عبدُكَ ونبيُّكَ اللَّهمَّ إنِّي أسألُكَ الجنَّةَ وما قرَّبَ إليها من قولٍ وعملٍ وأعوذُ بكَ منَ النَّارِ وما قرَّبَ إليها من قولٍ أو عملٍ وأسألُكَ أن تجعلَ كلَّ قضاءٍ قضيتَهُ لي خيرًا" ,
 
+            "اللَّهُمَّ إنِّي أَعُوذُ بكَ مِنَ العَجْزِ، وَالْكَسَلِ، وَالْجُبْنِ، وَالْبُخْلِ، وَالْهَرَمِ، وَعَذَابِ، القَبْرِ اللَّهُمَّ آتِ نَفْسِي تَقْوَاهَا، وَزَكِّهَا أَنْتَ خَيْرُ مَن زَكَّاهَا، أَنْتَ وَلِيُّهَا وَمَوْلَاهَا، اللَّهُمَّ إنِّي أَعُوذُ بكَ مِن عِلْمٍ لا يَنْفَعُ، وَمِنْ قَلْبٍ لا يَخْشَعُ، وَمِنْ نَفْسٍ لا تَشْبَعُ، وَمِنْ دَعْوَةٍ لا يُسْتَجَابُ لَهَا" ,
+
+            "اللهمَّ مالكَ الملكِ تُؤتي الملكَ مَن تشاءُ، وتنزعُ الملكَ ممن تشاءُ، وتُعِزُّ مَن تشاءُ، وتذِلُّ مَن تشاءُ، بيدِك الخيرُ إنك على كلِّ شيءٍ قديرٌ، رحمنُ الدنيا والآخرةِ ورحيمُهما، تعطيهما من تشاءُ، وتمنعُ منهما من تشاءُ، ارحمْني رحمةً تُغنيني بها عن رحمةِ مَن سواك" ,
+
+            "اللَّهُمَّ لكَ الحَمْدُ، أنْتَ رَبُّ السَّمَوَاتِ والأرْضِ، لكَ الحَمْدُ أنْتَ قَيِّمُ السَّمَوَاتِ والأرْضِ ومَن فِيهِنَّ، لكَ الحَمْدُ أنْتَ نُورُ السَّمَوَاتِ والأرْضِ، قَوْلُكَ الحَقُّ، ووَعْدُكَ الحَقُّ، ولِقَاؤُكَ حَقٌّ، والجَنَّةُ حَقٌّ، والنَّارُ حَقٌّ، والسَّاعَةُ حَقٌّ، اللَّهُمَّ لكَ أسْلَمْتُ، وبِكَ آمَنْتُ، وعَلَيْكَ تَوَكَّلْتُ، وإلَيْكَ أنَبْتُ، وبِكَ خَاصَمْتُ، وإلَيْكَ حَاكَمْتُ، فَاغْفِرْ لي ما قَدَّمْتُ وما أخَّرْتُ، وأَسْرَرْتُ وأَعْلَنْتُ، أنْتَ إلَهِي لا إلَهَ لي غَيْرُكَ" ,
+
+            "اللهم اجعلْ في قلبي نورًا، وفي سمعي نورًا، وعن يميني نورًا، وعن يساري نورًا، وفوقي نورًا، وتحتي نورًا، وأمامي نورًا، وخلفي نورًا، وأعظِمْ لي نورًا اللهم اجعلْ لي نورًا في قلبي، واجعلْ لي نورًا في سمعي، واجعلْ لي نورًا في بصري، واجعلْ لي نورًا عن يميني، ونورًا عن شمالي، واجعلْ لي نورًا من بين يديَّ، ونورًا من خلفي، وزِدْني نورًا، وزِدْني نورًا، وزِدْني نورًا" ,
+
+            "اللهمَّ إني أسألُك العفوَ والعافيةَ، في الدنيا والآخرةِ، اللهمَّ إني أسألُك العفوَ والعافيةَ، في دِيني ودنيايَ وأهلي ومالي، اللهمَّ استُرْ عوراتي، وآمِنْ روعاتي، واحفظني من بين يدي، ومن خلفي، وعن يميني، وعن شمالي، ومن فوقي، وأعوذُ بك أن أُغْتَالَ من تحتي" ,
+
+            "يا حيُّ يا قيُّومُ، برَحمتِكَ أستَغيثُ، أصلِح لي شأني كُلَّهُ، ولا تَكِلني إلى نَفسي طرفةَ عينٍ" ,
+
+            "اللَّهمَّ إنِّي أسألُكَ عِلمًا نافعًا ورزقًا طيِّبًا وعملًا متقبَّلًا" ,
+
+            "أَذْهِبِ البَاسَ، رَبَّ النَّاسِ، وَاشْفِ أَنْتَ الشَّافِي، لا شِفَاءَ إلَّا شِفَاؤُكَ، شِفَاءً لا يُغَادِرُ سَقَمًا" ,
+
+            "بسمِ اللَّهِ الَّذي لا يضرُّ معَ اسمِهِ شيءٌ في الأرضِ ولَا في السَّماءِ، وَهوَ السَّميعُ العليمُ ثلاثَ مرَّاتٍ" ,
+
+            "اللهمَّ عافِني في بدني، اللهمَّ عافِني في سمعي، اللهمَّ عافِني في بصري" ,
+
+            "ربَّنا اللهُ الذي في السَّماءِ تقدَّس اسمُك أمرُك في السَّماءِ والأرضِ كما رحمتُك في السَّماءِ فاجعلْ رحمتَكَ في الأرضِ اغفرْ لنا حُوبَنا وخطايانا أنت ربُّ الطَّيِّبينَ أنزِلْ رحمةً وشفاءً من شفائِك على هذا الوجعِ فيبرأُ" ,
+
+            "أَعوذُ بكلِماتِ اللهِ التامَّاتِ، الَّتي لا يُجاوِزُهُنَّ بَرٌّ ولا فاجرٌ، مِن شرِّ ما خلقَ، وذرأَ، وبرأَ، ومِن شرِّ ما ينزِلُ مِن السَّماءِ، ومِن شرِّ ما يعرُجُ فيها، ومِن شرِّ ما ذرأَ في الأرضِ وبرأَ، ومِن شرِّ ما يَخرجُ مِنها، ومِن شرِّ فِتَنِ اللَّيلِ والنَّهارِ، ومِن شرِّ كلِّ طارقٍ يطرُقُ، إلَّا طارقًا يطرقُ بِخَيرٍ، يا رَحمنُ" ,
+
+            "أَعُوذُ بكَلِمَاتِ اللَّهِ التَّامَّةِ، مِن كُلِّ شيطَانٍ وهَامَّةٍ، ومِنْ كُلِّ عَيْنٍ لَامَّةٍ"
+
+
+        )
+    }
 
     private fun createFillerPhrases(): List<String> {
         return listOf(
@@ -66,6 +118,10 @@ class MainFirstActivity:AppCompatActivity() {
 
         )
     }
+
+    /**
+     * generate data from list of data
+     */
     private fun generatePhrase(phrases:List<String>):String{
         val randomValue = Random.nextInt(phrases.size)
         return  phrases[randomValue]

@@ -24,6 +24,11 @@
             android:exported="true" android:parentActivityName=".MainFirstActivity">
 
         </activity>
+        <activity
+            android:name=".PrayOfActivity" android:label="@string/prayOf"
+            android:exported="true" android:parentActivityName=".MainFirstActivity">
+
+        </activity>
     </application>
 
 </manifest>
