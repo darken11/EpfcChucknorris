@@ -6,6 +6,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.json.JSONObject
@@ -60,16 +61,19 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        /**
-         * i set the value of the adapter in the recycleView first
-         */
 
-        recycleView.adapter=planetAdapter
         /**
          * i store the value of the current activity into the context
          */
         val context: Context =this
         val layoutManager =LinearLayoutManager(context)
+
+
+        /**
+         * i set the value of the adapter in the recycleView first
+         */
+
+        recycleView.adapter=planetAdapter
         /**
          * i store the value of layoutManager to the recycleView
          */
@@ -81,12 +85,12 @@ class MainActivity : AppCompatActivity() {
          */
         btnVertical=findViewById(R.id.btn_1)
         btnVertical.setOnClickListener{
-            val layoutManagerVert=LinearLayoutManager(context,1,false)
+            val layoutManagerVert=LinearLayoutManager(context)
             recycleView.layoutManager=layoutManagerVert
         }
         btnGrid=findViewById(R.id.btn_2)
         btnGrid.setOnClickListener{
-            val layoutManagerGrid=LinearLayoutManager(context,1,true)
+            val layoutManagerGrid=GridLayoutManager(context,2)
             recycleView.layoutManager=layoutManagerGrid
         }
 
