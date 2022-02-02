@@ -8,11 +8,9 @@ class Planet constructor(
                          val population:Long
 
                          ){
+    operator fun set(index: Int, value: String) {
 
-
-
-
-
+    }
 
 
 }

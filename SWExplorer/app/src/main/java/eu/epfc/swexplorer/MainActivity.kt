@@ -2,6 +2,7 @@ package eu.epfc.swexplorer
 
 import Planet
 import SWPlanetsAdapter
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,14 +19,14 @@ class MainActivity : AppCompatActivity() {
      lateinit var planetList:MutableList<Planet>
      lateinit var btnVertical:Button
      lateinit var btnGrid:Button
-
+    val planetAdapter =SWPlanetsAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
         val recycleView:RecyclerView=findViewById(R.id.recycleView)
-        val planetAdapter =SWPlanetsAdapter()
+
 
 
         resourceFromJson= this.loadJSONFromAsset().toString()
@@ -90,7 +91,9 @@ class MainActivity : AppCompatActivity() {
         }
         btnGrid=findViewById(R.id.btn_2)
         btnGrid.setOnClickListener{
+            this.updatePlanets()
             val layoutManagerGrid=GridLayoutManager(context,2)
+
             recycleView.layoutManager=layoutManagerGrid
         }
 
@@ -118,6 +121,19 @@ class MainActivity : AppCompatActivity() {
 
         return jsonContent
 
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun updatePlanets(){
+        val lastLetter=planetList[0].name.last()
+        for((index, planetList)in planetList.withIndex()){
+            if(lastLetter.isUpperCase()){
+                planetList[index]=planetList.name.lowercase().replaceFirstChar { name->name.uppercase() }
+            }else{
+                planetList[index]=planetList.name.uppercase()
+            }
+
+        }
+        planetAdapter.notifyDataSetChanged()
     }
 
 }

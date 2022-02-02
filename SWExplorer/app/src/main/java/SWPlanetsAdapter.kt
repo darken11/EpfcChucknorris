@@ -10,6 +10,11 @@ import eu.epfc.swexplorer.R
 class SWPlanetsAdapter : RecyclerView.Adapter<SWPlanetsAdapter.PlanetViewHolder>() {
 
     var planetData : List<Planet>? = null
+    @SuppressLint("NotifyDataSetChanged")
+    set(planetData) {
+        field=planetData
+        notifyDataSetChanged()
+    }
 
 
     inner class PlanetViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
