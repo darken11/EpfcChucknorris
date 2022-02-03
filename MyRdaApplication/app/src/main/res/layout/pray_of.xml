@@ -6,28 +6,24 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
 
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/prayOfView"
-        android:layout_margin="10dp"
+        style="@style/TitleFont"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="10dp"
         android:layout_weight="0.6"
-        android:textColor="@color/white"
-        android:text=""
-        android:textSize="20sp"
-        style="@style/TitleFont"
-        android:shadowRadius="50"
-        android:textAlignment="center"
         android:background="@drawable/corner_full_ronded"
+        android:shadowRadius="50"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
 
         />
-
-
-
-
 
 
 </LinearLayout>

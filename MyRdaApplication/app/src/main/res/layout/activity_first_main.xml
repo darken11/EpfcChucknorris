@@ -1,95 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+
     android:orientation="vertical">
 
-
-    <ImageView
-        android:id="@+id/dhikrId"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2"
-        android:textSize="50sp"
-        android:text="@string/dhikr"
-        android:src="@drawable/image_mosq"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/todo" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/dhikrId"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_mosq" />
+
+        <TextView
+            android:id="@+id/textVImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="-100dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/label_date"
+        style="@style/TitleFontFirst"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.08"
-        android:text=""
-        style="@style/TitleFontFirst"
-        android:padding="10dp"
+        android:layout_weight="0.05"
         android:background="#222121"
+        android:padding="3dp"
+        android:text=""
         android:textColor="@color/white"
 
         />
+
     <TextView
         android:id="@+id/label_title_prayOf"
+        style="@style/TitleFontFirst"
         android:layout_width="330dp"
         android:layout_height="0dp"
-        android:layout_weight="0.05"
-        android:text="@string/prayOf"
-        style="@style/TitleFontFirst"
-        android:padding="3dp"
         android:layout_marginTop="30dp"
+        android:layout_weight="0.05"
         android:background="@drawable/corner_ronder_up"
-        android:textColor="@color/white"
-
+        android:padding="3dp"
         android:shadowRadius="50"
+        android:text="@string/prayOf"
+
+        android:textColor="@color/white"
 
         />
+
     <TextView
         android:id="@+id/prayOfBody"
+        style="@style/TitleFontFirst"
         android:layout_width="330dp"
         android:layout_height="0dp"
-        android:layout_weight="0.29"
-        android:text="..."
-
-        style="@style/TitleFontFirst"
-        android:textColor="@color/white"
-        android:onClick="onShowDoua"
         android:layout_marginBottom="30dp"
-        android:shadowRadius="50"
-        android:background="@drawable/corner_ronded"
 
+        android:layout_weight="0.29"
+        android:background="@drawable/corner_ronded"
+        android:onClick="onShowDoua"
+        android:shadowRadius="50"
+        android:text="..."
+        android:textColor="@color/white"
 
 
         />
 
     <TextView
         android:id="@+id/label_title"
+        style="@style/TitleFontFirst"
         android:layout_width="330dp"
         android:layout_height="0dp"
-        android:layout_weight="0.05"
-        android:text="@string/dhikr"
-        style="@style/TitleFontFirst"
-        android:padding="3dp"
         android:layout_marginTop="30dp"
+        android:layout_weight="0.05"
         android:background="@drawable/corner_ronder_up"
+        android:padding="3dp"
+        android:shadowRadius="50"
+        android:text="@string/dhikr"
+
         android:textColor="@color/white"
 
-        android:shadowRadius="50"
-
         />
+
     <TextView
         android:id="@+id/dhikrBody"
+        style="@style/TitleFontFirst"
         android:layout_width="330dp"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:text=""
-        style="@style/TitleFontFirst"
-        android:textColor="@color/white"
-        android:onClick="goNextPage"
         android:layout_marginBottom="30dp"
-        android:shadowRadius="50"
+        android:layout_weight="0.1"
         android:background="@drawable/corner_ronded"
+        android:onClick="goNextPage"
+        android:shadowRadius="50"
+        android:text=""
+        android:textColor="@color/white"
 
 
-        />
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:theme="@style/Theme.AppCompat.DayNight">
+
+        <Button
+            android:id="@+id/btn_today"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="0.35"
+            android:text="@string/today"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_qibla"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="0.35"
+
+            android:text="@string/qibla"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_points"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="0.35"
+            android:text="@string/points"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
 </LinearLayout>

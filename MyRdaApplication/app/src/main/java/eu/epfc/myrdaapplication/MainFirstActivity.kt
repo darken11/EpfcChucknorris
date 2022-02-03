@@ -1,42 +1,90 @@
 package eu.epfc.myrdaapplication
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
-import android.text.TextUtils.concat
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import org.json.JSONObject
 import java.lang.ref.WeakReference
-import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.chrono.HijrahDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.random.Random
 
-class MainFirstActivity:AppCompatActivity() {
-    lateinit var fillerPhrases:List<String>
-    lateinit var generateDhikr:String
-    lateinit var  dhikrBody:TextView
-    lateinit var prayForPhrases:List<String>
-    lateinit var generatePrayFor:String
-    lateinit var prayOfBody:TextView
+class MainFirstActivity : AppCompatActivity() {
+    lateinit var fillerPhrases: List<String>
+    lateinit var generateDhikr: String
+    lateinit var dhikrBody: TextView
+    lateinit var prayForPhrases: List<String>
+    lateinit var generatePrayFor: String
+    lateinit var prayOfBody: TextView
+    lateinit var btnToday: TextView
+    lateinit var btnQibla: TextView
+    lateinit var btnPoints: TextView
+    lateinit var texteVImage: TextView
+    lateinit var currentDate: String
 
-
-    lateinit var labelDate:TextView
+    lateinit var labelDate: TextView
+    val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-uuuu")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_main)
-        title="ٱلسَّلَامُ عَلَيْكُمْ"
+
+        val context: Context = this
+        btnPoints = findViewById(R.id.btn_points)
+        btnPoints.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
+
+        btnQibla = findViewById(R.id.btn_qibla)
+        btnQibla.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
+
+        btnToday = findViewById(R.id.btn_today)
+        btnToday.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
+
+
+        btnToday.setOnClickListener {
+            btnToday.setTextColor(ContextCompat.getColor(context, R.color.gold))
+            btnToday.setTextSize(2, 18F)
+            btnToday.setPadding(2, 2, 2, 2)
+            btnQibla.setTextColor(ContextCompat.getColor(context, R.color.white))
+            btnPoints.setTextColor(ContextCompat.getColor(context, R.color.white))
+
+        }
+        btnQibla.setOnClickListener {
+            btnQibla.setTextColor(ContextCompat.getColor(context, R.color.gold))
+            btnToday.setTextSize(2, 18F)
+            btnToday.setPadding(2, 2, 2, 2)
+            btnPoints.setTextColor(ContextCompat.getColor(context, R.color.white))
+            btnToday.setTextColor(ContextCompat.getColor(context, R.color.white))
+
+
+        }
+        btnPoints.setOnClickListener {
+            btnPoints.setTextColor(ContextCompat.getColor(context, R.color.gold))
+            btnToday.setTextSize(2, 18F)
+            btnToday.setPadding(2, 2, 2, 2)
+            btnToday.setTextColor(ContextCompat.getColor(context, R.color.white))
+            btnQibla.setTextColor(ContextCompat.getColor(context, R.color.white))
+
+
+        }
+
+
+
+
         fillerPhrases = this.createFillerPhrases()
         generateDhikr = generatePhrase(fillerPhrases)
         dhikrBody = findViewById(R.id.dhikrBody)
         dhikrBody.text = generateDhikr
 
-        prayForPhrases=this.createPrayForPhrases()
-        generatePrayFor=generatePhrase(prayForPhrases)
-        prayOfBody=findViewById(R.id.prayOfBody)
-        prayOfBody.text=generatePrayFor
+        prayForPhrases = this.createPrayForPhrases()
+        generatePrayFor = generatePhrase(prayForPhrases)
+        prayOfBody = findViewById(R.id.prayOfBody)
+        prayOfBody.text = generatePrayFor
 
         labelDate = findViewById(R.id.label_date)
 
@@ -47,53 +95,75 @@ class MainFirstActivity:AppCompatActivity() {
         requestThread.start()
 
         //normal date
-        val currentDate:String=java.text.SimpleDateFormat("EEEE dd MMMM yyyy", Locale.getDefault()).format(Date())
+        currentDate =
+            java.text.SimpleDateFormat("EEEE dd MMMM yyyy", Locale.getDefault()).format(Date())
+        val dayOfWeek: String = SimpleDateFormat("EEEE", Locale.getDefault()).format(Date())
+        labelDate.text = currentDate
 
-        labelDate.text=currentDate
-
+        texteVImage = findViewById(R.id.textVImage)
+        texteVImage.text = dayOfWeek
 
     }
 
-    fun goNextPage(view:View){
-        val intent= Intent(this, MainActivity::class.java)
-        intent.putExtra(Intent.EXTRA_TEXT,generateDhikr)
+    fun goNextPage(view: View) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra(Intent.EXTRA_TEXT, generateDhikr)
         startActivity(intent)
     }
-    fun onShowDoua(view: View){
-        val intent= Intent(this, PrayOfActivity::class.java)
-        intent.putExtra(Intent.EXTRA_TEXT,generatePrayFor)
+
+    fun onShowDoua(view: View) {
+
+
+        val intent = Intent(this, PrayOfActivity::class.java)
+        intent.putExtra(Intent.EXTRA_TEXT, generatePrayFor)
         startActivity(intent)
     }
+
+
+    fun getDate() {
+
+
+        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        var sdf = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
+        val c = Calendar.getInstance()
+        var _date: String = sdf.format(c.time)
+        val gregorianDate: LocalDate = LocalDate.parse(_date, dateFormatter)
+        val islamicDates: HijrahDate = HijrahDate.from(gregorianDate)
+
+
+    }
+
+
     /**
      * List of douaa
      */
     private fun createPrayForPhrases(): List<String> {
         return listOf(
-            "اللَّهمَّ إنِّي أسألُكَ منَ الخيرِ كلِّهِ عاجلِهِ وآجلِهِ ما علمتُ منهُ وما لم أعلمْ وأعوذُ بكَ منَ الشَّرِّ كلِّهِ عاجلِهِ وآجلِهِ ما علمتُ منهُ وما لم أعلمْ اللَّهمَّ إنِّي أسألُكَ من خيرِ ما سألكَ عبدُكَ ونبيُّكَ وأعوذُ بكَ من شرِّ ما عاذَ منه عبدُكَ ونبيُّكَ اللَّهمَّ إنِّي أسألُكَ الجنَّةَ وما قرَّبَ إليها من قولٍ وعملٍ وأعوذُ بكَ منَ النَّارِ وما قرَّبَ إليها من قولٍ أو عملٍ وأسألُكَ أن تجعلَ كلَّ قضاءٍ قضيتَهُ لي خيرًا" ,
+            "اللَّهمَّ إنِّي أسألُكَ منَ الخيرِ كلِّهِ عاجلِهِ وآجلِهِ ما علمتُ منهُ وما لم أعلمْ وأعوذُ بكَ منَ الشَّرِّ كلِّهِ عاجلِهِ وآجلِهِ ما علمتُ منهُ وما لم أعلمْ اللَّهمَّ إنِّي أسألُكَ من خيرِ ما سألكَ عبدُكَ ونبيُّكَ وأعوذُ بكَ من شرِّ ما عاذَ منه عبدُكَ ونبيُّكَ اللَّهمَّ إنِّي أسألُكَ الجنَّةَ وما قرَّبَ إليها من قولٍ وعملٍ وأعوذُ بكَ منَ النَّارِ وما قرَّبَ إليها من قولٍ أو عملٍ وأسألُكَ أن تجعلَ كلَّ قضاءٍ قضيتَهُ لي خيرًا",
 
-            "اللَّهُمَّ إنِّي أَعُوذُ بكَ مِنَ العَجْزِ، وَالْكَسَلِ، وَالْجُبْنِ، وَالْبُخْلِ، وَالْهَرَمِ، وَعَذَابِ، القَبْرِ اللَّهُمَّ آتِ نَفْسِي تَقْوَاهَا، وَزَكِّهَا أَنْتَ خَيْرُ مَن زَكَّاهَا، أَنْتَ وَلِيُّهَا وَمَوْلَاهَا، اللَّهُمَّ إنِّي أَعُوذُ بكَ مِن عِلْمٍ لا يَنْفَعُ، وَمِنْ قَلْبٍ لا يَخْشَعُ، وَمِنْ نَفْسٍ لا تَشْبَعُ، وَمِنْ دَعْوَةٍ لا يُسْتَجَابُ لَهَا" ,
+            "اللَّهُمَّ إنِّي أَعُوذُ بكَ مِنَ العَجْزِ، وَالْكَسَلِ، وَالْجُبْنِ، وَالْبُخْلِ، وَالْهَرَمِ، وَعَذَابِ، القَبْرِ اللَّهُمَّ آتِ نَفْسِي تَقْوَاهَا، وَزَكِّهَا أَنْتَ خَيْرُ مَن زَكَّاهَا، أَنْتَ وَلِيُّهَا وَمَوْلَاهَا، اللَّهُمَّ إنِّي أَعُوذُ بكَ مِن عِلْمٍ لا يَنْفَعُ، وَمِنْ قَلْبٍ لا يَخْشَعُ، وَمِنْ نَفْسٍ لا تَشْبَعُ، وَمِنْ دَعْوَةٍ لا يُسْتَجَابُ لَهَا",
 
-            "اللهمَّ مالكَ الملكِ تُؤتي الملكَ مَن تشاءُ، وتنزعُ الملكَ ممن تشاءُ، وتُعِزُّ مَن تشاءُ، وتذِلُّ مَن تشاءُ، بيدِك الخيرُ إنك على كلِّ شيءٍ قديرٌ، رحمنُ الدنيا والآخرةِ ورحيمُهما، تعطيهما من تشاءُ، وتمنعُ منهما من تشاءُ، ارحمْني رحمةً تُغنيني بها عن رحمةِ مَن سواك" ,
+            "اللهمَّ مالكَ الملكِ تُؤتي الملكَ مَن تشاءُ، وتنزعُ الملكَ ممن تشاءُ، وتُعِزُّ مَن تشاءُ، وتذِلُّ مَن تشاءُ، بيدِك الخيرُ إنك على كلِّ شيءٍ قديرٌ، رحمنُ الدنيا والآخرةِ ورحيمُهما، تعطيهما من تشاءُ، وتمنعُ منهما من تشاءُ، ارحمْني رحمةً تُغنيني بها عن رحمةِ مَن سواك",
 
-            "اللَّهُمَّ لكَ الحَمْدُ، أنْتَ رَبُّ السَّمَوَاتِ والأرْضِ، لكَ الحَمْدُ أنْتَ قَيِّمُ السَّمَوَاتِ والأرْضِ ومَن فِيهِنَّ، لكَ الحَمْدُ أنْتَ نُورُ السَّمَوَاتِ والأرْضِ، قَوْلُكَ الحَقُّ، ووَعْدُكَ الحَقُّ، ولِقَاؤُكَ حَقٌّ، والجَنَّةُ حَقٌّ، والنَّارُ حَقٌّ، والسَّاعَةُ حَقٌّ، اللَّهُمَّ لكَ أسْلَمْتُ، وبِكَ آمَنْتُ، وعَلَيْكَ تَوَكَّلْتُ، وإلَيْكَ أنَبْتُ، وبِكَ خَاصَمْتُ، وإلَيْكَ حَاكَمْتُ، فَاغْفِرْ لي ما قَدَّمْتُ وما أخَّرْتُ، وأَسْرَرْتُ وأَعْلَنْتُ، أنْتَ إلَهِي لا إلَهَ لي غَيْرُكَ" ,
+            "اللَّهُمَّ لكَ الحَمْدُ، أنْتَ رَبُّ السَّمَوَاتِ والأرْضِ، لكَ الحَمْدُ أنْتَ قَيِّمُ السَّمَوَاتِ والأرْضِ ومَن فِيهِنَّ، لكَ الحَمْدُ أنْتَ نُورُ السَّمَوَاتِ والأرْضِ، قَوْلُكَ الحَقُّ، ووَعْدُكَ الحَقُّ، ولِقَاؤُكَ حَقٌّ، والجَنَّةُ حَقٌّ، والنَّارُ حَقٌّ، والسَّاعَةُ حَقٌّ، اللَّهُمَّ لكَ أسْلَمْتُ، وبِكَ آمَنْتُ، وعَلَيْكَ تَوَكَّلْتُ، وإلَيْكَ أنَبْتُ، وبِكَ خَاصَمْتُ، وإلَيْكَ حَاكَمْتُ، فَاغْفِرْ لي ما قَدَّمْتُ وما أخَّرْتُ، وأَسْرَرْتُ وأَعْلَنْتُ، أنْتَ إلَهِي لا إلَهَ لي غَيْرُكَ",
 
-            "اللهم اجعلْ في قلبي نورًا، وفي سمعي نورًا، وعن يميني نورًا، وعن يساري نورًا، وفوقي نورًا، وتحتي نورًا، وأمامي نورًا، وخلفي نورًا، وأعظِمْ لي نورًا اللهم اجعلْ لي نورًا في قلبي، واجعلْ لي نورًا في سمعي، واجعلْ لي نورًا في بصري، واجعلْ لي نورًا عن يميني، ونورًا عن شمالي، واجعلْ لي نورًا من بين يديَّ، ونورًا من خلفي، وزِدْني نورًا، وزِدْني نورًا، وزِدْني نورًا" ,
+            "اللهم اجعلْ في قلبي نورًا، وفي سمعي نورًا، وعن يميني نورًا، وعن يساري نورًا، وفوقي نورًا، وتحتي نورًا، وأمامي نورًا، وخلفي نورًا، وأعظِمْ لي نورًا اللهم اجعلْ لي نورًا في قلبي، واجعلْ لي نورًا في سمعي، واجعلْ لي نورًا في بصري، واجعلْ لي نورًا عن يميني، ونورًا عن شمالي، واجعلْ لي نورًا من بين يديَّ، ونورًا من خلفي، وزِدْني نورًا، وزِدْني نورًا، وزِدْني نورًا",
 
-            "اللهمَّ إني أسألُك العفوَ والعافيةَ، في الدنيا والآخرةِ، اللهمَّ إني أسألُك العفوَ والعافيةَ، في دِيني ودنيايَ وأهلي ومالي، اللهمَّ استُرْ عوراتي، وآمِنْ روعاتي، واحفظني من بين يدي، ومن خلفي، وعن يميني، وعن شمالي، ومن فوقي، وأعوذُ بك أن أُغْتَالَ من تحتي" ,
+            "اللهمَّ إني أسألُك العفوَ والعافيةَ، في الدنيا والآخرةِ، اللهمَّ إني أسألُك العفوَ والعافيةَ، في دِيني ودنيايَ وأهلي ومالي، اللهمَّ استُرْ عوراتي، وآمِنْ روعاتي، واحفظني من بين يدي، ومن خلفي، وعن يميني، وعن شمالي، ومن فوقي، وأعوذُ بك أن أُغْتَالَ من تحتي",
 
-            "يا حيُّ يا قيُّومُ، برَحمتِكَ أستَغيثُ، أصلِح لي شأني كُلَّهُ، ولا تَكِلني إلى نَفسي طرفةَ عينٍ" ,
+            "يا حيُّ يا قيُّومُ، برَحمتِكَ أستَغيثُ، أصلِح لي شأني كُلَّهُ، ولا تَكِلني إلى نَفسي طرفةَ عينٍ",
 
-            "اللَّهمَّ إنِّي أسألُكَ عِلمًا نافعًا ورزقًا طيِّبًا وعملًا متقبَّلًا" ,
+            "اللَّهمَّ إنِّي أسألُكَ عِلمًا نافعًا ورزقًا طيِّبًا وعملًا متقبَّلًا",
 
-            "أَذْهِبِ البَاسَ، رَبَّ النَّاسِ، وَاشْفِ أَنْتَ الشَّافِي، لا شِفَاءَ إلَّا شِفَاؤُكَ، شِفَاءً لا يُغَادِرُ سَقَمًا" ,
+            "أَذْهِبِ البَاسَ، رَبَّ النَّاسِ، وَاشْفِ أَنْتَ الشَّافِي، لا شِفَاءَ إلَّا شِفَاؤُكَ، شِفَاءً لا يُغَادِرُ سَقَمًا",
 
-            "بسمِ اللَّهِ الَّذي لا يضرُّ معَ اسمِهِ شيءٌ في الأرضِ ولَا في السَّماءِ، وَهوَ السَّميعُ العليمُ ثلاثَ مرَّاتٍ" ,
+            "بسمِ اللَّهِ الَّذي لا يضرُّ معَ اسمِهِ شيءٌ في الأرضِ ولَا في السَّماءِ، وَهوَ السَّميعُ العليمُ ثلاثَ مرَّاتٍ",
 
-            "اللهمَّ عافِني في بدني، اللهمَّ عافِني في سمعي، اللهمَّ عافِني في بصري" ,
+            "اللهمَّ عافِني في بدني، اللهمَّ عافِني في سمعي، اللهمَّ عافِني في بصري",
 
-            "ربَّنا اللهُ الذي في السَّماءِ تقدَّس اسمُك أمرُك في السَّماءِ والأرضِ كما رحمتُك في السَّماءِ فاجعلْ رحمتَكَ في الأرضِ اغفرْ لنا حُوبَنا وخطايانا أنت ربُّ الطَّيِّبينَ أنزِلْ رحمةً وشفاءً من شفائِك على هذا الوجعِ فيبرأُ" ,
+            "ربَّنا اللهُ الذي في السَّماءِ تقدَّس اسمُك أمرُك في السَّماءِ والأرضِ كما رحمتُك في السَّماءِ فاجعلْ رحمتَكَ في الأرضِ اغفرْ لنا حُوبَنا وخطايانا أنت ربُّ الطَّيِّبينَ أنزِلْ رحمةً وشفاءً من شفائِك على هذا الوجعِ فيبرأُ",
 
-            "أَعوذُ بكلِماتِ اللهِ التامَّاتِ، الَّتي لا يُجاوِزُهُنَّ بَرٌّ ولا فاجرٌ، مِن شرِّ ما خلقَ، وذرأَ، وبرأَ، ومِن شرِّ ما ينزِلُ مِن السَّماءِ، ومِن شرِّ ما يعرُجُ فيها، ومِن شرِّ ما ذرأَ في الأرضِ وبرأَ، ومِن شرِّ ما يَخرجُ مِنها، ومِن شرِّ فِتَنِ اللَّيلِ والنَّهارِ، ومِن شرِّ كلِّ طارقٍ يطرُقُ، إلَّا طارقًا يطرقُ بِخَيرٍ، يا رَحمنُ" ,
+            "أَعوذُ بكلِماتِ اللهِ التامَّاتِ، الَّتي لا يُجاوِزُهُنَّ بَرٌّ ولا فاجرٌ، مِن شرِّ ما خلقَ، وذرأَ، وبرأَ، ومِن شرِّ ما ينزِلُ مِن السَّماءِ، ومِن شرِّ ما يعرُجُ فيها، ومِن شرِّ ما ذرأَ في الأرضِ وبرأَ، ومِن شرِّ ما يَخرجُ مِنها، ومِن شرِّ فِتَنِ اللَّيلِ والنَّهارِ، ومِن شرِّ كلِّ طارقٍ يطرُقُ، إلَّا طارقًا يطرقُ بِخَيرٍ، يا رَحمنُ",
 
             "أَعُوذُ بكَلِمَاتِ اللَّهِ التَّامَّةِ، مِن كُلِّ شيطَانٍ وهَامَّةٍ، ومِنْ كُلِّ عَيْنٍ لَامَّةٍ"
 
@@ -122,32 +192,29 @@ class MainFirstActivity:AppCompatActivity() {
     /**
      * generate data from list of data
      */
-    private fun generatePhrase(phrases:List<String>):String{
+    private fun generatePhrase(phrases: List<String>): String {
         val randomValue = Random.nextInt(phrases.size)
-        return  phrases[randomValue]
+        return phrases[randomValue]
     }
 
 
-
-     fun  displayHttpResponse(response :String?,completed :Boolean){
+    fun displayHttpResponse(response: String?, completed: Boolean) {
         if (response != null) {
 
             // parse raw response to JSON object
-            val jsonObject =  JSONObject(response.toString())
+            val jsonObject = JSONObject(response.toString())
             val jsonObj = jsonObject.optJSONObject("results")
-            val dataArray =jsonObj.optJSONArray("datetime")
-            val dateHij=dataArray.getJSONObject(0)
-            val hijri=dateHij.getJSONObject("date")["hijri"];
-           // val currentDate:String=java.text.SimpleDateFormat("EEEE dd MMMM yyyy", Locale.getDefault()).format(Date())
-           //Hijry date
+            val dataArray = jsonObj.optJSONArray("datetime")
+            val dateHij = dataArray.getJSONObject(0)
+            val hijri = dateHij.getJSONObject("date")["hijri"];
+            // val currentDate:String=java.text.SimpleDateFormat("EEEE dd MMMM yyyy", Locale.getDefault()).format(Date())
+            //Hijry date
 
             //var concat2st=concat("Hijry date $hijriDate  current Date  $currentDate")
 
 
-
-
-        }else{
-            val failedMsg :String = getString(R.string.failed_msg)
+        } else {
+            val failedMsg: String = getString(R.string.failed_msg)
             labelDate.text = failedMsg
 
         }

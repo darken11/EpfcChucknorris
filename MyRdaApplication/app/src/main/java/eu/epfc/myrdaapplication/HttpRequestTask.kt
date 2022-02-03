@@ -10,9 +10,10 @@ import java.io.IOException
 import java.lang.ref.WeakReference
 
 class HttpRequestTask(
-    private val url:String,
-    private val applicationContext:Context,
-    private val activityWeakRef:WeakReference<MainFirstActivity>):Runnable {
+    private val url: String,
+    private val applicationContext: Context,
+    private val activityWeakRef: WeakReference<MainFirstActivity>
+) : Runnable {
     override fun run() {
         val okHttpClient = OkHttpClient()
 
@@ -29,11 +30,11 @@ class HttpRequestTask(
                     activityWeakRef.get()?.displayHttpResponse(responseString, true)
                 }
             }
-        }catch(exception :IOException){
-            val mainHandler=Handler(applicationContext.mainLooper)
-            mainHandler.post{
-               /* val mainFirstActivity: MainFirstActivity?=activityWeakRef.get()
-                mainFirstActivity?.displayHttpResponse(null, false)*/
+        } catch (exception: IOException) {
+            val mainHandler = Handler(applicationContext.mainLooper)
+            mainHandler.post {
+                /* val mainFirstActivity: MainFirstActivity?=activityWeakRef.get()
+                 mainFirstActivity?.displayHttpResponse(null, false)*/
             }
         }
     }

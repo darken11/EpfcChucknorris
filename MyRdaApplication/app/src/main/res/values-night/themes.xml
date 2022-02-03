@@ -10,9 +10,12 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-       <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondary</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
         <!-- Customize your theme here. -->
+
+
     </style>
+
     <style name="TitleFont">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">50sp</item>
@@ -20,11 +23,16 @@
         <item name="android:gravity">center</item>
 
     </style>
+
     <style name="TitleFontFirst">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_horizontal</item>
 
+    </style>
+
+    <style name="btnMenu">
+        <item name="android:hint">@color/gris</item>
     </style>
 </resources>

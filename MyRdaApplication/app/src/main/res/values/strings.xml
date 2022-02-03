@@ -2,9 +2,12 @@
     <string name="app_name">Misbahati</string>
     <string name="dhikr">اذكار اليوم</string>
     <string name="prayOf">أدعية نبوية جامعة</string>
-
     <string name="zero">0</string>
     <string name="reset">Reset</string>
     <string name="todo">TODO</string>
     <string name="failed_msg">لا يوجد تاريخ</string>
+    <string name="today">اليوم</string>
+    <string name="qibla">القبلة</string>
+    <string name="points">…</string>
+
 </resources>
