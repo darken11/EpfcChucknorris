@@ -4,6 +4,7 @@ import Planet
 import SWPlanetsAdapter
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -14,12 +15,12 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),SWPlanetsAdapter.ListItemClickListener {
     lateinit var resourceFromJson :String
      lateinit var planetList:MutableList<Planet>
      lateinit var btnVertical:Button
      lateinit var btnGrid:Button
-    val planetAdapter =SWPlanetsAdapter()
+    val planetAdapter =SWPlanetsAdapter(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -101,7 +102,12 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
+    override fun onListItemClick(clickedItemIndex: Int) {
+        val selectItem=planetList[clickedItemIndex]
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("planetObject", selectItem)
+        startActivity(intent)
+    }
 
     /**
      * This function read from assets/planets.json file and return string
@@ -135,5 +141,7 @@ class MainActivity : AppCompatActivity() {
         }
         planetAdapter.notifyDataSetChanged()
     }
+
+
 
 }

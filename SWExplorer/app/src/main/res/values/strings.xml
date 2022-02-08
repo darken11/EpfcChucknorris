@@ -4,5 +4,12 @@
     <string name="grid">GRID</string>
     <string name="recycle_view">Recycle View</string>
     <string name="list">LIST</string>
+    <string name="rotation_Period">Rotation Period</string>
+    <string name="orbital_Period">Orbital Period</string>
+    <string name="diameter">Diameter</string>
+    <string name="climate">Climate</string>
+    <string name="terrain">Terrain:</string>
+    <string name="points">....</string>
+
 
 </resources>

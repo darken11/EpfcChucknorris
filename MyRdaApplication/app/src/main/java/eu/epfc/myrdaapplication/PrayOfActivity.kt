@@ -15,7 +15,7 @@ class PrayOfActivity : AppCompatActivity() {
         title = "الدعاء المختار"
 
         scroll_wrapper=findViewById(R.id.scroll_wrapper)
-
+        //this function is for to apply scrollY for the element scroll_wrapper
         scroll_wrapper.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             scroll_wrapper.getChildAt(0).height-scroll_wrapper.height
         }

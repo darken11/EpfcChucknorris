@@ -1,3 +1,5 @@
+import java.io.Serializable
+
 class Planet constructor(
                          val name:String,
                          val rotationPeriod:Int,
@@ -7,7 +9,7 @@ class Planet constructor(
                          val terrain:String,
                          val population:Long
 
-                         ){
+                         ):Serializable{
     operator fun set(index: Int, value: String) {
 
     }

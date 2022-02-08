@@ -10,8 +10,8 @@
     android:id="@+id/scroll_wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        android:scrollbarSize="@dimen/cardview_default_elevation"
-        tools:ignore="UselessParent">
+    android:scrollbarSize="0dp"
+    tools:ignore="UselessParent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 android:text=""
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="40sp"
+                android:textSize="36sp"
 
                 tools:ignore="RtlSymmetry" />
         </LinearLayout>
