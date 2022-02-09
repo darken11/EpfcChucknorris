@@ -2,6 +2,7 @@ package eu.epfc.myrdaapplication
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -28,11 +29,12 @@ class MainFirstActivity : AppCompatActivity() {
     lateinit var btnPoints: TextView
     lateinit var texteVImage: TextView
     lateinit var currentDate: String
-
     lateinit var labelDate: TextView
     val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-uuuu")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //set by default the Orientation to Portrait screen and don't lets user change it with rotate
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setContentView(R.layout.activity_first_main)
 
         val context: Context = this
@@ -45,7 +47,7 @@ class MainFirstActivity : AppCompatActivity() {
         btnToday = findViewById(R.id.btn_today)
         btnToday.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
 
-
+        // Animation for btn
         btnToday.setOnClickListener {
             btnToday.setTextColor(ContextCompat.getColor(context, R.color.gold))
             btnToday.setTextSize(2, 18F)
