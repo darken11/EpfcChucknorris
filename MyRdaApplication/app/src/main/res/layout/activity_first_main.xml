@@ -18,7 +18,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/image_mosq"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,13 +62,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dhikrId" />
 
+
     <TextView
         android:id="@+id/label_title_prayOf"
         style="@style/TitleFontFirst"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="196dp"
         android:layout_marginEnd="16dp"
         android:layout_weight="0.05"
         android:background="@drawable/corner_ronder_up"
@@ -77,7 +78,7 @@
         android:text="@string/prayOf"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_date" />
 
@@ -89,25 +90,17 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/corner_ronded"
-        android:onClick="onShowDoua"
         android:ellipsize="end"
-        android:maxLines="3"
+        android:maxLines="2"
+        android:onClick="onShowDoua"
+        android:padding="15dp"
         android:shadowRadius="50"
         android:text="..."
-        android:padding="15dp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_title_prayOf" />
-
-
-    <!--        android:id="@+id/menu_first"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:theme="@style/Theme.AppCompat.DayNight">-->
-
-<!--        ]]>-->
 
     <TextView
         android:id="@+id/label_title"
@@ -115,7 +108,7 @@
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/corner_ronder_up"
         android:padding="3dp"
@@ -123,7 +116,7 @@
         android:text="@string/dhikr"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prayOfBody" />
 
@@ -138,26 +131,128 @@
         android:onClick="goNextPage"
         android:shadowRadius="50"
         android:text=""
+        android:ellipsize="end"
+        android:maxLines="2"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_title"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_today"
-        android:layout_width="131dp"
-        android:layout_height="70dp"
-        android:layout_above="@+id/menu_first"
+        style="@style/TitleFontFirst"
+        android:layout_width="94dp"
+        android:layout_height="58dp"
+        android:paddingTop="28dp"
         android:text="@string/today"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_qibla"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dhikrBody"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="NotSibling,UnknownId" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/btn_qibla"
+        style="@style/TitleFontFirst"
+        android:layout_width="94dp"
+        android:layout_height="58dp"
+        android:textColor="@color/white"
+        android:paddingTop="28dp"
+        android:text="@string/qibla"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_mosque"
+        app:layout_constraintStart_toEndOf="@+id/btn_today"
+        app:layout_constraintTop_toBottomOf="@+id/dhikrBody"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/btn_mosque"
+        style="@style/TitleFontFirst"
+        android:layout_width="94dp"
+        android:layout_height="58dp"
+        android:textColor="@color/white"
+        android:paddingTop="28dp"
+        android:text="@string/mosque"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_points"
+        app:layout_constraintTop_toBottomOf="@+id/dhikrBody"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/btn_points"
+        style="@style/TitleFontFirst"
+        android:layout_width="94dp"
+        android:layout_height="58dp"
+        android:text="@string/points"
+        android:textColor="@color/white"
+        android:paddingTop="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dhikrBody"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageCalendar"
+        android:layout_width="25dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_today"
+        app:layout_constraintEnd_toEndOf="@+id/btn_today"
+
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/btn_today"
+        app:layout_constraintTop_toTopOf="@+id/btn_today"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@mipmap/cal" />
+
+    <ImageView
+        android:id="@+id/imageQibla"
+        android:layout_width="25dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_qibla"
+        app:layout_constraintEnd_toEndOf="@+id/btn_qibla"
+        app:layout_constraintStart_toEndOf="@+id/btn_today"
+        app:layout_constraintTop_toTopOf="@+id/btn_qibla"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:srcCompat="@mipmap/qib" />
+
+    <ImageView
+        android:id="@+id/imageMosque"
+        android:layout_width="25dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btn_mosque"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="@+id/btn_mosque"
+        app:layout_constraintTop_toTopOf="@+id/btn_mosque"
+
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@mipmap/mos" />
+
+    <ImageView
+        android:id="@+id/imageMore"
+        android:layout_width="25dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_points"
+        app:layout_constraintEnd_toEndOf="@+id/btn_points"
+        app:layout_constraintStart_toStartOf="@+id/btn_points"
+        app:layout_constraintTop_toTopOf="@+id/btn_points"
+        app:layout_constraintVertical_bias="0.0"
+
+        app:srcCompat="@mipmap/bar" />
+
     <!--        <DatePicker-->
         <!--            android:id="@+id/dateOfBirthInput"-->
         <!--            android:inputType="text|date"-->
@@ -167,82 +262,6 @@
         <!--            android:calendarViewShown="false"-->
         <!--            android:layout_gravity="center_horizontal"-->
         <!--            />-->
-
-
-    <ImageView
-        android:id="@+id/icon_today"
-        android:layout_width="24dp"
-        android:layout_height="16dp"
-        android:layout_above="@+id/btn_today"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:src="@mipmap/calendar_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_today"
-        app:layout_constraintEnd_toEndOf="@+id/btn_today"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_today"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/btn_qibla"
-        android:layout_width="131dp"
-        android:layout_height="70dp"
-        android:text="@string/qibla"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_points"
-        app:layout_constraintStart_toEndOf="@+id/btn_today"
-        app:layout_constraintTop_toBottomOf="@+id/dhikrBody"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/icon_qibla"
-        android:layout_width="24dp"
-        android:layout_height="16dp"
-        android:layout_above="@+id/btn_qibla"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:src="@mipmap/mosque_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_qibla"
-        app:layout_constraintEnd_toEndOf="@+id/btn_qibla"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toEndOf="@+id/btn_today"
-        app:layout_constraintTop_toTopOf="@+id/btn_qibla"
-        app:layout_constraintVertical_bias="0.363" />
-
-    <Button
-        android:id="@+id/btn_points"
-        android:layout_width="131dp"
-        android:layout_height="90dp"
-        android:text="@string/points"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toEndOf="@+id/btn_qibla"
-        app:layout_constraintTop_toBottomOf="@+id/dhikrBody"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/icon_points"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_above="@+id/btn_points"
-
-        android:layout_marginEnd="56dp"
-        android:src="@mipmap/mosque_icon"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_points"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.927"
-        app:layout_constraintStart_toStartOf="@+id/btn_points"
-        app:layout_constraintTop_toBottomOf="@+id/dhikrBody"
-        app:layout_constraintVertical_bias="0.304" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

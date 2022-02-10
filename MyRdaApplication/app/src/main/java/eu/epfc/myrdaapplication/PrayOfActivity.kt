@@ -12,7 +12,7 @@ class PrayOfActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pray_of)
-        title = "الدعاء المختار"
+        title = "L'nvocation Choisie"
 
         scroll_wrapper=findViewById(R.id.scroll_wrapper)
         //this function is for to apply scrollY for the element scroll_wrapper

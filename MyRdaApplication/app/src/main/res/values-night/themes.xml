@@ -32,7 +32,5 @@
 
     </style>
 
-    <style name="btnMenu">
-        <item name="android:hint">@color/gris</item>
-    </style>
+
 </resources>

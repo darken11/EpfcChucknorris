@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -27,6 +28,7 @@ class MainFirstActivity : AppCompatActivity() {
     lateinit var btnToday: TextView
     lateinit var btnQibla: TextView
     lateinit var btnPoints: TextView
+    lateinit var btnMosque:TextView
     lateinit var texteVImage: TextView
     lateinit var currentDate: String
     lateinit var labelDate: TextView
@@ -36,41 +38,84 @@ class MainFirstActivity : AppCompatActivity() {
         //set by default the Orientation to Portrait screen and don't lets user change it with rotate
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setContentView(R.layout.activity_first_main)
-
         val context: Context = this
+        val imageMore:ImageView=findViewById(R.id.imageMore)
         btnPoints = findViewById(R.id.btn_points)
         btnPoints.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
-
+        val imageQibla:ImageView=findViewById(R.id.imageQibla)
         btnQibla = findViewById(R.id.btn_qibla)
         btnQibla.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
+        val imageMosque:ImageView=findViewById(R.id.imageMosque)
+        btnMosque=findViewById(R.id.btn_mosque)
+        btnMosque.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
 
+        val imageCalendar:ImageView=findViewById(R.id.imageCalendar)
         btnToday = findViewById(R.id.btn_today)
         btnToday.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
 
-        // Animation for btn
+
         btnToday.setOnClickListener {
             btnToday.setTextColor(ContextCompat.getColor(context, R.color.gold))
+            imageCalendar.setImageResource(R.mipmap.cal_gold)
             btnToday.setTextSize(2, 18F)
-            btnToday.setPadding(2, 2, 2, 2)
             btnQibla.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageQibla.setImageResource(R.mipmap.qib)
             btnPoints.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageMore.setImageResource(R.mipmap.bar)
+            btnMosque.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageMosque.setImageResource(R.mipmap.mos)
+
 
         }
         btnQibla.setOnClickListener {
             btnQibla.setTextColor(ContextCompat.getColor(context, R.color.gold))
-            btnToday.setTextSize(2, 18F)
-            btnToday.setPadding(2, 2, 2, 2)
+            imageQibla.setImageResource(R.mipmap.qib_gold)
+            btnQibla.setTextSize(2, 18F)
+
             btnPoints.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageMore.setImageResource(R.mipmap.bar)
+
             btnToday.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageCalendar.setImageResource(R.mipmap.cal)
+
+            btnMosque.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageMosque.setImageResource(R.mipmap.mos)
+
+
+
+
+        }
+        btnMosque.setOnClickListener {
+            btnMosque.setTextColor(ContextCompat.getColor(context, R.color.gold))
+            imageMosque.setImageResource(R.mipmap.mos_gold)
+            btnMosque.setTextSize(2, 18F)
+
+            btnPoints.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageMore.setImageResource(R.mipmap.bar)
+
+            btnToday.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageCalendar.setImageResource(R.mipmap.cal)
+
+            btnQibla.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageQibla.setImageResource(R.mipmap.qib)
+
 
 
         }
         btnPoints.setOnClickListener {
             btnPoints.setTextColor(ContextCompat.getColor(context, R.color.gold))
-            btnToday.setTextSize(2, 18F)
-            btnToday.setPadding(2, 2, 2, 2)
+            imageMore.setImageResource(R.mipmap.bar_gold)
+            btnPoints.setTextSize(2, 18F)
+
             btnToday.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageCalendar.setImageResource(R.mipmap.cal)
+
             btnQibla.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageQibla.setImageResource(R.mipmap.qib)
+
+            btnMosque.setTextColor(ContextCompat.getColor(context, R.color.white))
+            imageMosque.setImageResource(R.mipmap.mos)
+
 
 
         }
@@ -100,6 +145,7 @@ class MainFirstActivity : AppCompatActivity() {
         currentDate =
             java.text.SimpleDateFormat("EEEE dd MMMM yyyy", Locale.getDefault()).format(Date())
         val dayOfWeek: String = SimpleDateFormat("EEEE", Locale.getDefault()).format(Date())
+
         labelDate.text = currentDate
 
         texteVImage = findViewById(R.id.textVImage)
