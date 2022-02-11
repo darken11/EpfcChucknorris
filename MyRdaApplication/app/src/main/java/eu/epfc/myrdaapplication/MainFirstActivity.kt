@@ -10,11 +10,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-
 import org.json.JSONObject
 import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
@@ -26,24 +27,38 @@ import kotlin.random.Random
 
 class MainFirstActivity : AppCompatActivity(), LocationListener {
     lateinit var fillerPhrases: List<String>
-    lateinit var generateDhikr: String
-    lateinit var dhikrBody: TextView
     lateinit var prayForPhrases: List<String>
-    lateinit var generatePrayFor: String
+
+    lateinit var dhikrBody: TextView
     lateinit var prayOfBody: TextView
     lateinit var btnToday: TextView
     lateinit var btnQibla: TextView
     lateinit var btnPoints: TextView
     lateinit var btnMosque: TextView
     lateinit var texteVImage: TextView
-    lateinit var currentDate: String
     lateinit var labelDate: TextView
+    lateinit var localisationText: TextView
+
+    lateinit var currentDate: String
+    lateinit var generatePrayFor: String
+    lateinit var generateDhikr: String
+
+    lateinit var  imageMore: ImageView
+    lateinit var imageQibla: ImageView
+    lateinit var imageMosque: ImageView
+    lateinit var imageCalendar: ImageView
+    lateinit var dhikrId:ImageView
+
     var lon: Double = 0.0
     var lat: Double = 0.0
+
+    lateinit var scroll_wrapper: ScrollView
+   lateinit var progress:ConstraintLayout
     private lateinit var locationManager: LocationManager
     private lateinit var tvGpsLocation: String
     private val locationPermissionCode = 2
-    lateinit var localisationText: TextView
+
+    lateinit var context: Context
 
     val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-uuuu")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,19 +66,19 @@ class MainFirstActivity : AppCompatActivity(), LocationListener {
         //set by default the Orientation to Portrait screen and don't lets user change it with rotate
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setContentView(R.layout.activity_first_main)
-        val context: Context = this
+        context = this
 
-        val imageMore: ImageView = findViewById(R.id.imageMore)
+        imageMore = findViewById(R.id.imageMore)
         btnPoints = findViewById(R.id.btn_points)
         btnPoints.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
-        val imageQibla: ImageView = findViewById(R.id.imageQibla)
+        imageQibla = findViewById(R.id.imageQibla)
         btnQibla = findViewById(R.id.btn_qibla)
         btnQibla.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
-        val imageMosque: ImageView = findViewById(R.id.imageMosque)
+        imageMosque = findViewById(R.id.imageMosque)
         btnMosque = findViewById(R.id.btn_mosque)
         btnMosque.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
 
-        val imageCalendar: ImageView = findViewById(R.id.imageCalendar)
+        imageCalendar = findViewById(R.id.imageCalendar)
         btnToday = findViewById(R.id.btn_today)
         btnToday.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
 
@@ -172,6 +187,11 @@ class MainFirstActivity : AppCompatActivity(), LocationListener {
         //normal date
         currentDate =
             java.text.SimpleDateFormat("EEEE dd MMMM yyyy", Locale.getDefault()).format(Date())
+        //get current time
+        val simpleDateFormat = SimpleDateFormat("HH:mm:ss z")
+        val currentDateAndTime: String = simpleDateFormat.format(Date())
+
+
         val dayOfWeek: String = SimpleDateFormat("EEEE", Locale.getDefault()).format(Date())
 
         labelDate.text = currentDate
@@ -183,11 +203,33 @@ class MainFirstActivity : AppCompatActivity(), LocationListener {
         btnMosque.setOnClickListener {
             showMap()
         }
+        scroll_wrapper=findViewById(R.id.scroll_wrapper)
+        //this function is for to apply scrollY for the element scroll_wrapper
+        scroll_wrapper.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+           scroll_wrapper.getChildAt(0).height-scroll_wrapper.height
+
+        }
+        val planetImageName = "sunset_one"
+
+        // the file names are always lower case
+
+        // get the resource ID of the image file from its name
+        var resourceId = resources.getIdentifier(planetImageName, "drawable",
+            packageName)
+        // if there is no image for that planet
+        if (resourceId == 0) {
+            // get the resource from the generic_planet image
+            resourceId = resources.getIdentifier("midday_five", "drawable",
+                packageName)
+        }
+        dhikrId=findViewById(R.id.dhikrId)
+        dhikrId.setImageResource(resourceId)
 
     }
 
 
     private fun getLocation() {
+
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if ((ContextCompat.checkSelfPermission(
                 this,
@@ -366,5 +408,9 @@ class MainFirstActivity : AppCompatActivity(), LocationListener {
 
     }
 
+    override fun onProviderEnabled(provider: String) {}
 
+    override fun onProviderDisabled(provider: String) {}
+
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
 }
