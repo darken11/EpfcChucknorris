@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_misbahati"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main_misbahati"
     android:background="@color/black"
     android:orientation="vertical">
 
@@ -38,8 +38,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/imageLocalisation"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@mipmap/location_icon"
         app:layout_constraintBottom_toBottomOf="@+id/dhikrId"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +48,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textVImage"
         app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/localisationText"
+        style="@style/TitleFontFirst"
+        android:layout_width="177dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="70dp"
+        android:padding="3dp"
+        android:text=""
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/dhikrId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.714"
+        app:layout_constraintStart_toEndOf="@+id/imageLocalisation"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/label_date"
@@ -128,11 +147,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/corner_ronded"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:onClick="goNextPage"
         android:shadowRadius="50"
         android:text=""
-        android:ellipsize="end"
-        android:maxLines="2"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -160,9 +179,9 @@
         style="@style/TitleFontFirst"
         android:layout_width="94dp"
         android:layout_height="58dp"
-        android:textColor="@color/white"
         android:paddingTop="28dp"
         android:text="@string/qibla"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_mosque"
         app:layout_constraintStart_toEndOf="@+id/btn_today"
@@ -174,9 +193,10 @@
         style="@style/TitleFontFirst"
         android:layout_width="94dp"
         android:layout_height="58dp"
-        android:textColor="@color/white"
+        android:onClick="showMap"
         android:paddingTop="28dp"
         android:text="@string/mosque"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_points"
         app:layout_constraintTop_toBottomOf="@+id/dhikrBody"
@@ -187,9 +207,9 @@
         style="@style/TitleFontFirst"
         android:layout_width="94dp"
         android:layout_height="58dp"
+        android:paddingTop="28dp"
         android:text="@string/points"
         android:textColor="@color/white"
-        android:paddingTop="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dhikrBody"
@@ -218,10 +238,10 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_qibla"
         app:layout_constraintEnd_toEndOf="@+id/btn_qibla"
+        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toEndOf="@+id/btn_today"
         app:layout_constraintTop_toTopOf="@+id/btn_qibla"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintHorizontal_bias="0.500"
         app:srcCompat="@mipmap/qib" />
 
     <ImageView
@@ -253,15 +273,16 @@
 
         app:srcCompat="@mipmap/bar" />
 
+
     <!--        <DatePicker-->
-        <!--            android:id="@+id/dateOfBirthInput"-->
-        <!--            android:inputType="text|date"-->
-        <!--            android:layout_width="130dp"-->
-        <!--            android:layout_height="20dp"-->
-        <!--            android:datePickerMode="spinner"-->
-        <!--            android:calendarViewShown="false"-->
-        <!--            android:layout_gravity="center_horizontal"-->
-        <!--            />-->
+    <!--            android:id="@+id/dateOfBirthInput"-->
+    <!--            android:inputType="text|date"-->
+    <!--            android:layout_width="130dp"-->
+    <!--            android:layout_height="20dp"-->
+    <!--            android:datePickerMode="spinner"-->
+    <!--            android:calendarViewShown="false"-->
+    <!--            android:layout_gravity="center_horizontal"-->
+    <!--            />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

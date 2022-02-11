@@ -1,14 +1,20 @@
 package eu.epfc.myrdaapplication
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
+import android.location.*
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+
 import org.json.JSONObject
 import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
@@ -18,7 +24,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.random.Random
 
-class MainFirstActivity : AppCompatActivity() {
+class MainFirstActivity : AppCompatActivity(), LocationListener {
     lateinit var fillerPhrases: List<String>
     lateinit var generateDhikr: String
     lateinit var dhikrBody: TextView
@@ -28,10 +34,17 @@ class MainFirstActivity : AppCompatActivity() {
     lateinit var btnToday: TextView
     lateinit var btnQibla: TextView
     lateinit var btnPoints: TextView
-    lateinit var btnMosque:TextView
+    lateinit var btnMosque: TextView
     lateinit var texteVImage: TextView
     lateinit var currentDate: String
     lateinit var labelDate: TextView
+    var lon: Double = 0.0
+    var lat: Double = 0.0
+    private lateinit var locationManager: LocationManager
+    private lateinit var tvGpsLocation: String
+    private val locationPermissionCode = 2
+    lateinit var localisationText: TextView
+
     val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-uuuu")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,17 +52,18 @@ class MainFirstActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setContentView(R.layout.activity_first_main)
         val context: Context = this
-        val imageMore:ImageView=findViewById(R.id.imageMore)
+
+        val imageMore: ImageView = findViewById(R.id.imageMore)
         btnPoints = findViewById(R.id.btn_points)
         btnPoints.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
-        val imageQibla:ImageView=findViewById(R.id.imageQibla)
+        val imageQibla: ImageView = findViewById(R.id.imageQibla)
         btnQibla = findViewById(R.id.btn_qibla)
         btnQibla.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
-        val imageMosque:ImageView=findViewById(R.id.imageMosque)
-        btnMosque=findViewById(R.id.btn_mosque)
+        val imageMosque: ImageView = findViewById(R.id.imageMosque)
+        btnMosque = findViewById(R.id.btn_mosque)
         btnMosque.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
 
-        val imageCalendar:ImageView=findViewById(R.id.imageCalendar)
+        val imageCalendar: ImageView = findViewById(R.id.imageCalendar)
         btnToday = findViewById(R.id.btn_today)
         btnToday.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
 
@@ -82,8 +96,6 @@ class MainFirstActivity : AppCompatActivity() {
             imageMosque.setImageResource(R.mipmap.mos)
 
 
-
-
         }
         btnMosque.setOnClickListener {
             btnMosque.setTextColor(ContextCompat.getColor(context, R.color.gold))
@@ -100,7 +112,6 @@ class MainFirstActivity : AppCompatActivity() {
             imageQibla.setImageResource(R.mipmap.qib)
 
 
-
         }
         btnPoints.setOnClickListener {
             btnPoints.setTextColor(ContextCompat.getColor(context, R.color.gold))
@@ -115,7 +126,6 @@ class MainFirstActivity : AppCompatActivity() {
 
             btnMosque.setTextColor(ContextCompat.getColor(context, R.color.white))
             imageMosque.setImageResource(R.mipmap.mos)
-
 
 
         }
@@ -135,11 +145,29 @@ class MainFirstActivity : AppCompatActivity() {
 
         labelDate = findViewById(R.id.label_date)
 
-        val url = "https://api.pray.zone/v2/times/today.json?city=brussels"
+//        val url = "https://api.pray.zone/v2/times/today.json?city=brussels"
+//
+//        val requestTask = HttpRequestTask(url, this.applicationContext, WeakReference(this))
+//        val requestThread = Thread(requestTask)
+//        requestThread.start()
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
 
-        val requestTask = HttpRequestTask(url, this.applicationContext, WeakReference(this))
-        val requestThread = Thread(requestTask)
-        requestThread.start()
 
         //normal date
         currentDate =
@@ -151,6 +179,63 @@ class MainFirstActivity : AppCompatActivity() {
         texteVImage = findViewById(R.id.textVImage)
         texteVImage.text = dayOfWeek
 
+        getLocation()
+        btnMosque.setOnClickListener {
+            showMap()
+        }
+
+    }
+
+
+    private fun getLocation() {
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if ((ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED)
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                locationPermissionCode
+            )
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
+    }
+
+
+    override fun onLocationChanged(location: Location) {
+        lon = location.longitude
+        lat = location.latitude
+
+        localisationText = findViewById(R.id.localisationText)
+        // we prepare our url for localisation
+        val urlGps = "https://nominatim.openstreetmap.org/reverse?format=json&lat=$lat&lon=$lon"
+
+        val requestTaskGps = HttpRequestTask(urlGps, this.applicationContext, WeakReference(this))
+        val requestThreadGps = Thread(requestTaskGps)
+        requestThreadGps.start()
+
+
+        tvGpsLocation = "Latitude: " + location.latitude + " , Longitude: " + location.longitude
+    }
+
+
+    fun showMap() {
+        val searchLocal: String = tvGpsLocation
+        val addressUri = Uri.parse("geo:0,0?q=$searchLocal")
+        onShowMap(addressUri)
+
+    }
+
+    fun onShowMap(geoLocation: Uri) {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+
+            data = geoLocation
+        }
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
     }
 
     fun goNextPage(view: View) {
@@ -172,9 +257,9 @@ class MainFirstActivity : AppCompatActivity() {
 
 
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        var sdf = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
         val c = Calendar.getInstance()
-        var _date: String = sdf.format(c.time)
+        val _date: String = sdf.format(c.time)
         val gregorianDate: LocalDate = LocalDate.parse(_date, dateFormatter)
         val islamicDates: HijrahDate = HijrahDate.from(gregorianDate)
 
@@ -219,6 +304,9 @@ class MainFirstActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * list of tasbih
+     */
     private fun createFillerPhrases(): List<String> {
         return listOf(
             "اَعـوذُبِكَلِمـاتِ اللّهِ التّـامّـاتِ مِنْ شَـرِّ ما خَلَـق ",
@@ -249,12 +337,21 @@ class MainFirstActivity : AppCompatActivity() {
     fun displayHttpResponse(response: String?, completed: Boolean) {
         if (response != null) {
 
+
             // parse raw response to JSON object
             val jsonObject = JSONObject(response.toString())
-            val jsonObj = jsonObject.optJSONObject("results")
-            val dataArray = jsonObj.optJSONArray("datetime")
-            val dateHij = dataArray.getJSONObject(0)
-            val hijri = dateHij.getJSONObject("date")["hijri"];
+            val jsonObj = jsonObject.optJSONObject("address")
+            val ville = jsonObj.getString("municipality")
+
+            localisationText.text = ville
+
+
+//            // parse raw response to JSON object
+//            val jsonObject = JSONObject(response.toString())
+//            val jsonObj = jsonObject.optJSONObject("results")
+//            val dataArray = jsonObj.optJSONArray("datetime")
+//            val dateHij = dataArray.getJSONObject(0)
+//            val hijri = dateHij.getJSONObject("date")["hijri"];
             // val currentDate:String=java.text.SimpleDateFormat("EEEE dd MMMM yyyy", Locale.getDefault()).format(Date())
             //Hijry date
 
@@ -268,5 +365,6 @@ class MainFirstActivity : AppCompatActivity() {
         }
 
     }
+
 
 }
