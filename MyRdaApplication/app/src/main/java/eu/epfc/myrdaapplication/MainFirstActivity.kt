@@ -407,7 +407,7 @@ class MainFirstActivity : AppCompatActivity(), LocationListener {
         }
 
     }
-
+// this 3 methods lets the code clean with not  bug if we don't turn gps
     override fun onProviderEnabled(provider: String) {}
 
     override fun onProviderDisabled(provider: String) {}
