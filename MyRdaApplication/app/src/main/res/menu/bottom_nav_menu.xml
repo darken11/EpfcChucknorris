@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+
+    <item
+        android:id="@+id/calendar"
+        android:title="@string/today"
+        android:icon="@mipmap/cal"/>
+    <item
+        android:id="@+id/qibla"
+        android:title="@string/qibla"
+
+        android:icon="@mipmap/qib"/>
+    <item
+        android:id="@+id/mosque"
+        android:title="@string/mosque"
+        android:icon="@mipmap/mos"/>
+    <item
+        android:id="@+id/menu_tabs"
+        android:title="@string/points"
+        android:icon="@mipmap/bar"/>
+</menu>

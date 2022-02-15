@@ -7,6 +7,7 @@
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/drawable/corner_full_ronded.xml" value="0.38333333333333336" />
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/drawable/corner_ronded.xml" value="0.2203125" />
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/drawable/corner_ronder_up.xml" value="0.38333333333333336" />
+        <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/drawable/ic_calendar_today_foreground.xml" value="0.36770833333333336" />
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/drawable/ic_launcher_background.xml" value="0.221875" />
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/drawable/ronde_shape.xml" value="0.38333333333333336" />
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/drawable/rounded_corner.xml" value="0.2203125" />
@@ -14,8 +15,13 @@
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/layout-v28/activity_main.xml" value="0.3671875" />
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/layout/activity_first_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/layout/fragment_first.xml" value="0.2557291666666667" />
+        <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/layout/fragment_fourth.xml" value="0.3375" />
+        <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/layout/fragment_seconde.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/layout/fragment_third.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/layout/item_adhkar.xml" value="0.3671875" />
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/layout/pray_of.xml" value="0.3671875" />
+        <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2557291666666667" />
         <entry key="..\:/Users/User/Desktop/projects/EPFC/MyRdaApplication/app/src/main/res/menu/menu.xml" value="0.20572916666666666" />
       </map>
     </option>

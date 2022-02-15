@@ -10,5 +10,7 @@
     <string name="qibla">Qibla</string>
     <string name="mosque">Mosquées</string>
     <string name="points">Plus</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

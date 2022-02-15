@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.json.JSONObject
 import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
@@ -23,7 +25,9 @@ import java.time.LocalDate
 import java.time.chrono.HijrahDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.math.max
 import kotlin.random.Random
+
 
 class MainFirstActivity : AppCompatActivity(), LocationListener {
     lateinit var fillerPhrases: List<String>
@@ -31,9 +35,7 @@ class MainFirstActivity : AppCompatActivity(), LocationListener {
 
     lateinit var dhikrBody: TextView
     lateinit var prayOfBody: TextView
-    lateinit var btnToday: TextView
-    lateinit var btnQibla: TextView
-    lateinit var btnPoints: TextView
+
     lateinit var btnMosque: TextView
     lateinit var texteVImage: TextView
     lateinit var labelDate: TextView
@@ -42,11 +44,8 @@ class MainFirstActivity : AppCompatActivity(), LocationListener {
     lateinit var currentDate: String
     lateinit var generatePrayFor: String
     lateinit var generateDhikr: String
+lateinit var  bottomNavigationView:BottomNavigationView
 
-    lateinit var  imageMore: ImageView
-    lateinit var imageQibla: ImageView
-    lateinit var imageMosque: ImageView
-    lateinit var imageCalendar: ImageView
     lateinit var dhikrId:ImageView
 
     var lon: Double = 0.0
@@ -68,83 +67,24 @@ class MainFirstActivity : AppCompatActivity(), LocationListener {
         setContentView(R.layout.activity_first_main)
         context = this
 
-        imageMore = findViewById(R.id.imageMore)
-        btnPoints = findViewById(R.id.btn_points)
-        btnPoints.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
-        imageQibla = findViewById(R.id.imageQibla)
-        btnQibla = findViewById(R.id.btn_qibla)
-        btnQibla.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
-        imageMosque = findViewById(R.id.imageMosque)
-        btnMosque = findViewById(R.id.btn_mosque)
-        btnMosque.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
+        val firstFragment=FirstFragment()
+        val secondFragment=SecondFragment()
+        val thirdFragment=ThirdFragment()
+        val fourthFragment=FourthFragment()
+        setCurrentFragment(firstFragment)
+        var bottomNavigationView:BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.calendar -> setCurrentFragment(firstFragment)
 
-        imageCalendar = findViewById(R.id.imageCalendar)
-        btnToday = findViewById(R.id.btn_today)
-        btnToday.setBackgroundColor(ContextCompat.getColor(context, R.color.gris))
-
-
-        btnToday.setOnClickListener {
-            btnToday.setTextColor(ContextCompat.getColor(context, R.color.gold))
-            imageCalendar.setImageResource(R.mipmap.cal_gold)
-            btnToday.setTextSize(2, 18F)
-            btnQibla.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageQibla.setImageResource(R.mipmap.qib)
-            btnPoints.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageMore.setImageResource(R.mipmap.bar)
-            btnMosque.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageMosque.setImageResource(R.mipmap.mos)
+                R.id.qibla -> setCurrentFragment(fourthFragment)
+                R.id.mosque -> setCurrentFragment(thirdFragment)
+                R.id.menu_tabs -> setCurrentFragment(secondFragment)
 
 
+            }
+            true
         }
-        btnQibla.setOnClickListener {
-            btnQibla.setTextColor(ContextCompat.getColor(context, R.color.gold))
-            imageQibla.setImageResource(R.mipmap.qib_gold)
-            btnQibla.setTextSize(2, 18F)
-
-            btnPoints.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageMore.setImageResource(R.mipmap.bar)
-
-            btnToday.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageCalendar.setImageResource(R.mipmap.cal)
-
-            btnMosque.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageMosque.setImageResource(R.mipmap.mos)
-
-
-        }
-        btnMosque.setOnClickListener {
-            btnMosque.setTextColor(ContextCompat.getColor(context, R.color.gold))
-            imageMosque.setImageResource(R.mipmap.mos_gold)
-            btnMosque.setTextSize(2, 18F)
-
-            btnPoints.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageMore.setImageResource(R.mipmap.bar)
-
-            btnToday.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageCalendar.setImageResource(R.mipmap.cal)
-
-            btnQibla.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageQibla.setImageResource(R.mipmap.qib)
-
-
-        }
-        btnPoints.setOnClickListener {
-            btnPoints.setTextColor(ContextCompat.getColor(context, R.color.gold))
-            imageMore.setImageResource(R.mipmap.bar_gold)
-            btnPoints.setTextSize(2, 18F)
-
-            btnToday.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageCalendar.setImageResource(R.mipmap.cal)
-
-            btnQibla.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageQibla.setImageResource(R.mipmap.qib)
-
-            btnMosque.setTextColor(ContextCompat.getColor(context, R.color.white))
-            imageMosque.setImageResource(R.mipmap.mos)
-
-
-        }
-
 
 
 
@@ -165,23 +105,7 @@ class MainFirstActivity : AppCompatActivity(), LocationListener {
 //        val requestTask = HttpRequestTask(url, this.applicationContext, WeakReference(this))
 //        val requestThread = Thread(requestTask)
 //        requestThread.start()
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
+
 
 
         //normal date
@@ -200,15 +124,17 @@ class MainFirstActivity : AppCompatActivity(), LocationListener {
         texteVImage.text = dayOfWeek
 
         getLocation()
-        btnMosque.setOnClickListener {
-            showMap()
-        }
-        scroll_wrapper=findViewById(R.id.scroll_wrapper)
-        //this function is for to apply scrollY for the element scroll_wrapper
-        scroll_wrapper.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-           scroll_wrapper.getChildAt(0).height-scroll_wrapper.height
-
-        }
+//        bottomNavigationView=findViewById(R.id.bottomNavigationView)
+//        scroll_wrapper=findViewById(R.id.scroll_wrapper)
+//        //this function is for to apply scrollY for the element scroll_wrapper
+//        scroll_wrapper.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+//           val totalLength:Int=scroll_wrapper.getChildAt(0).height-scroll_wrapper.height
+//            bottomNavigationView.apply {
+//                max(0,totalLength)
+//
+//            }
+//
+//        }
         val planetImageName = "sunset_one"
 
         // the file names are always lower case
@@ -413,4 +339,11 @@ class MainFirstActivity : AppCompatActivity(), LocationListener {
     override fun onProviderDisabled(provider: String) {}
 
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+
+
+    private fun setCurrentFragment(fragment: Fragment)=
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment,fragment)
+            commit()
+        }
 }

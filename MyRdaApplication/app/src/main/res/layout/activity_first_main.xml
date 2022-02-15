@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/scroll_wrapper"
-    android:scrollbarSize="2dp"
+    android:orientation="vertical"
+    android:id="@+id/main_misbahati"
     tools:ignore="UselessParent"
     tools:context=".MainFirstActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_misbahati"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/black"
->
 
     <ImageView
         android:id="@+id/dhikrId"
@@ -133,7 +126,7 @@
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/corner_ronder_up"
         android:padding="3dp"
@@ -167,124 +160,29 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
 
+    <FrameLayout
+        android:id="@+id/flFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:itemTextColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/btn_today"
-                style="@style/TitleFontFirst"
-                android:layout_width="94dp"
-                android:layout_height="58dp"
-                android:layout_marginTop="4dp"
-                android:paddingTop="28dp"
-                android:text="@string/today"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toStartOf="@id/btn_qibla"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dhikrBody"
-                tools:ignore="NotSibling" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:itemIconSize="30dp"
+        app:itemTextColor="@color/gold"
+        app:menu="@menu/bottom_nav_menu"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/btn_qibla"
-                style="@style/TitleFontFirst"
-                android:layout_width="94dp"
-                android:layout_height="58dp"
-                android:layout_marginTop="4dp"
 
-                android:paddingTop="28dp"
-                android:text="@string/qibla"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toStartOf="@id/btn_mosque"
-                app:layout_constraintStart_toEndOf="@id/btn_today"
-                app:layout_constraintTop_toBottomOf="@id/dhikrBody"
-                tools:ignore="NotSibling" />
 
-            <TextView
-                android:id="@+id/btn_mosque"
-                style="@style/TitleFontFirst"
-                android:layout_width="94dp"
-                android:layout_height="58dp"
-                android:layout_marginTop="4dp"
-                android:paddingTop="28dp"
-                android:text="@string/mosque"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toStartOf="@id/btn_points"
-                app:layout_constraintStart_toEndOf="@+id/btn_qibla"
-                app:layout_constraintTop_toBottomOf="@id/dhikrBody"
-                tools:ignore="NotSibling" />
-
-            <TextView
-                android:id="@+id/btn_points"
-                style="@style/TitleFontFirst"
-                android:layout_width="94dp"
-                android:layout_height="58dp"
-                android:layout_marginTop="4dp"
-                android:paddingTop="28dp"
-                android:text="@string/points"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_mosque"
-                app:layout_constraintTop_toBottomOf="@id/dhikrBody"
-                app:layout_constraintVertical_bias="0.0"
-                tools:ignore="NotSibling" />
-
-            <ImageView
-                android:id="@+id/imageCalendar"
-                android:layout_width="25dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:contentDescription="TODO"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_today"
-
-                app:layout_constraintEnd_toEndOf="@+id/btn_today"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/btn_today"
-                app:layout_constraintTop_toTopOf="@+id/btn_today"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@mipmap/cal" />
-
-            <ImageView
-                android:id="@+id/imageQibla"
-                android:layout_width="25dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:contentDescription="TODO"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_qibla"
-                app:layout_constraintEnd_toEndOf="@+id/btn_qibla"
-                app:layout_constraintHorizontal_bias="0.846"
-                app:layout_constraintStart_toEndOf="@+id/btn_today"
-                app:layout_constraintTop_toTopOf="@+id/btn_qibla"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@mipmap/qib" />
-
-            <ImageView
-                android:id="@+id/imageMosque"
-                android:layout_width="25dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:contentDescription="TODO"
-                app:layout_constraintEnd_toEndOf="@+id/btn_mosque"
-                app:layout_constraintHorizontal_bias="0.507"
-                app:layout_constraintStart_toStartOf="@+id/btn_mosque"
-                app:layout_constraintTop_toTopOf="@+id/btn_mosque"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@mipmap/mos" />
-
-            <ImageView
-                android:id="@+id/imageMore"
-                android:layout_width="25dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:contentDescription="TODO"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_points"
-                app:layout_constraintEnd_toEndOf="@+id/btn_points"
-                app:layout_constraintStart_toStartOf="@+id/btn_points"
-                app:layout_constraintTop_toTopOf="@+id/btn_points"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@mipmap/bar" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
 
